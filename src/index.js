@@ -15,7 +15,6 @@ breedsSelectorRef.addEventListener('change', () => {
   const selectedCatValue = breedsSelectorRef.options[selectedCatIndex].value;
 
   catInfoRef.innerHTML = '';
-  // hideElement(errorRef);
   showElement(loaderRef);
 
   fetchCatByBreed(selectedCatValue)
@@ -67,6 +66,11 @@ function onFetchBreedsMarkup(breeds) {
 }
 
 function onCatSelectMarkup(cat) {
+  if (cat.length === 0) {
+    return Notiflix.Notify.failure(
+      'Oops! Something went wrong! Try reloading the page!'
+    );
+  }
   const markup = cat
     .map(({ url, breeds }) => {
       return `<img src='${url}' alt='${breeds[0].name}' class="cat-image" />
